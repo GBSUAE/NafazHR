@@ -25,7 +25,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // DEMO MODE — Simulate API
     setTimeout(() => {
-      if (companyCode.toLowerCase() === 'demo' || companyCode === 'gbs123') {
+     const clientCode = companyCode.toLowerCase();
+const testCssUrl = `clients/${clientCode}/client.css`;
+
+fetch(testCssUrl, { method: 'HEAD' })
+  .then((res) => {
+    if (res.ok) {
+      companyCodeMessage.textContent = 'Company Code verified!';
+      companyCodeBlock.style.display = 'none';
+      loginBlock.style.display = 'block';
+
+      localStorage.setItem("client", clientCode);
+      loadClientBranding(clientCode);
+      loadFooterComponent();
+    } else {
+      throw new Error();
+    }
+  })
+  .catch(() => {
+    companyCodeMessage.textContent = 'Invalid Company Code. Please try again.';
+    loginBlock.style.display = 'none';
+  }); {
         companyCodeMessage.textContent = 'Company Code verified!';
 
 companyCodeBlock.style.display = 'none';
