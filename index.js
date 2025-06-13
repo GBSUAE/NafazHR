@@ -25,45 +25,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // DEMO MODE — Simulate API
     setTimeout(() => {
-     const clientCode = companyCode.toLowerCase();
-const testCssUrl = `clients/${clientCode}/client.css`;
+  const clientCode = companyCode.toLowerCase();
+  const testCssUrl = `clients/${clientCode}/client.css`;
 
-fetch(testCssUrl, { method: 'HEAD' })
-  .then((res) => {
-    if (res.ok) {
-      companyCodeMessage.textContent = 'Company Code verified!';
-      companyCodeBlock.style.display = 'none';
-      loginBlock.style.display = 'block';
-
-      localStorage.setItem("client", clientCode);
-      loadClientBranding(clientCode);
-      loadFooterComponent();
-    } else {
-      throw new Error();
-    }
-  })
-  .catch(() => {
-    companyCodeMessage.textContent = 'Invalid Company Code. Please try again.';
-    loginBlock.style.display = 'none';
-  }); {
+  fetch(testCssUrl, { method: 'HEAD' })
+    .then((res) => {
+      if (res.ok) {
         companyCodeMessage.textContent = 'Company Code verified!';
+        companyCodeBlock.style.display = 'none';
+        loginBlock.style.display = 'block';
 
-companyCodeBlock.style.display = 'none';
-loginBlock.style.display = 'block';
+        localStorage.setItem("client", clientCode);
 
-const clientCode = companyCode.toLowerCase();
-localStorage.setItem("client", clientCode);
-
-// Load client-specific branding and footer
-loadClientBranding(clientCode);
-loadFooterComponent();        
-
+        // ✅ Load client-specific branding and footer
+        loadClientBranding(clientCode);
+        loadFooterComponent();
       } else {
-        companyCodeMessage.textContent = 'Invalid Company Code. Please try again.';
-        loginBlock.style.display = 'none';
+        throw new Error(); // force catch
       }
-    }, 1000);
-  });
+    })
+    .catch(() => {
+      companyCodeMessage.textContent = 'Invalid Company Code. Please try again.';
+      loginBlock.style.display = 'none';
+    });
+}, 500); // optional delay
+
 
   // === Login ===
   loginButton.addEventListener('click', function() {
