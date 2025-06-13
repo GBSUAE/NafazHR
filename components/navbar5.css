@@ -1,0 +1,135 @@
+/* NAVBAR5 CSS — FINAL CLEAN */
+
+.navbar5 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-family: var(--font-family);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Left: Logo */
+.navbar5-left {
+  font-weight: bold;
+  font-size: 20px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Right: Links + Profile */
+.navbar5-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+/* Links */
+.navbar5-links {
+  display: flex;
+  gap: var(--spacing-lg);
+}
+
+.navbar5-links a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar5-links a:hover {
+  text-decoration: underline;
+}
+
+/* Profile */
+.navbar5-profile {
+  position: relative;
+  cursor: pointer;
+}
+
+.navbar5-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--secondary-color);
+  transition: box-shadow 0.3s ease;
+}
+
+.navbar5-profile-img:hover {
+  box-shadow: 0 0 5px 2px rgba(255,255,255,0.6);
+}
+
+/* Profile Dropdown */
+.navbar5-profile-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background: var(--secondary-color);
+  color: var(--text-color);
+  min-width: 180px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  border-radius: var(--border-radius);
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.navbar5-profile-dropdown a {
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--text-color);
+  text-decoration: none;
+  display: block;
+}
+
+.navbar5-profile-dropdown a:hover {
+  background: #f0f0f0;
+}
+
+/* Burger (Mobile) */
+.navbar5-burger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Mobile Menu */
+.navbar5-mobile-menu {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: var(--primary-color);
+  flex-direction: column;
+  width: 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.navbar5-mobile-menu a {
+  padding: var(--spacing-sm);
+  color: var(--secondary-color);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.navbar5-mobile-menu a:hover {
+  background: var(--primary-color-dark);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar5-links {
+    display: none;
+  }
+
+  .navbar5-burger {
+    display: block;
+  }
+}
+
+.navbar5-logo {
+  height: 32px;
+  object-fit: contain;
+}

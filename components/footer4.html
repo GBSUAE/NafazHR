@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Footer4 Component</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="components/footer4.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<footer class="footer4">
+  <!-- Top Row -->
+  <div class="footer4-top">
+    <!-- Left: Client Logo -->
+    <div class="footer4-left">
+      <img src="public/logoipsum-376.svg" alt="Client Logo" class="footer4-client-logo" />
+    </div>
+
+    <!-- Center: Policies Links (desktop) -->
+    <div class="footer4-policies desktop-only">
+      <a href="hr-policy.html">HR Policy</a>
+      <a href="leave-policy.html">Leave Policy</a>
+      <a href="travel-policy.html">Travel Policy</a>
+      <a href="exit-process.html">Exit Process</a>
+    </div>
+
+    <!-- Center: Policies Collapse Button (mobile) -->
+    <div class="footer4-policies-toggle mobile-only">
+      <button onclick="togglePolicies()">Policies ▼</button>
+      <div class="footer4-policies-dropdown" id="policiesDropdown">
+        <a href="hr-policy.html">HR Policy</a>
+        <a href="leave-policy.html">Leave Policy</a>
+        <a href="travel-policy.html">Travel Policy</a>
+        <a href="exit-process.html">Exit Process</a>
+      </div>
+    </div>
+
+    <!-- Right: Copyright -->
+    <div class="footer4-right">
+      © 2025 Gap Bridging Solution<br/>
+      <span class="footer4-powered">
+        Powered by <img src="public/default-monochrome-white.svg" alt="GBS Logo" class="footer4-gbs-logo" />
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="components/footer4.js" defer></script>
+</body>
+</html>

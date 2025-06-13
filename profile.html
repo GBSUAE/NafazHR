@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Employee Profile - GBS Employee Dashboard</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components/navbar5.css" />
+  <link rel="stylesheet" href="components/footer4.css" />
+  <link rel="stylesheet" href="profile.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar-placeholder"></div>
+
+<!-- MAIN CONTENT -->
+<main class="profile-layout">
+<!-- LEFT: Profile Card -->
+<aside class="profile-card">
+  <img src="public/openart-image_tn4wx41m_1748897369885_raw-200h.jpg" alt="Profile Picture" class="profile-card-img" />
+  <h2 id="profileName">John Doe</h2>
+  <p>Employee ID: <span id="profileEmpId">EMP12345</span></p>
+  <p>Designation: <span id="profileDesignation">HR Manager</span></p>
+  <p>Department: <span id="profileDepartment">HR</span></p>
+  <p>Official Email: <span id="profileEmail">john.doe@company.com</span></p>
+</aside>
+
+<!-- RIGHT: Profile Sections -->
+<section class="profile-sections">
+<!-- Personal Information Section -->
+<div class="profile-section" id="personal-info-section">
+  <div class="section-header">
+    <h2>Personal Information</h2>
+    <i class="fa-solid fa-pen edit-icon" data-section="personal-info"></i>
+  </div>
+
+  <!-- View Mode -->
+  <div class="section-view">
+    <p>Display Name: <span id="viewDisplayName">John Doe</span></p>
+    <p>Personal Email: <span id="viewPersonalEmail">john.personal@example.com</span></p>
+    <p>Phone: <span id="viewPhone">+971 50 123 4567</span></p>
+    <p>Date of Birth: <span id="viewDob">1990-01-01</span></p>
+    <p>Nationality: <span id="viewNationality">UAE</span></p>
+    <p>Gender: <span id="viewGender">Male</span></p>
+    <p>Father's Name: <span id="viewFatherName">Ali Hassan</span></p>
+    <p>Mother's Name: <span id="viewMotherName">Fatima Hassan</span></p>
+    <p>Marital Status: <span id="viewMaritalStatus">Single</span></p>
+
+    <!-- Dependent Block in View -->
+    <div id="view-dependent-section" style="display: none; margin-top: 1rem; border-top: 1px solid #ccc; padding-top: 1rem;">
+  <h3>Dependent Details</h3>
+  <p>Spouse Name: <span id="viewSpouseName"></span></p>
+  <p>Spouse Phone: <span id="viewSpousePhone"></span></p>
+  
+  <!-- NEW BLOCK -->
+  <div id="view-children-details"></div>
+</div>
+
+</div>
+  <!-- Edit Mode -->
+  <div class="section-edit" style="display: none;">
+    <div class="form-group">
+      <label for="displayName">Display Name</label>
+      <input type="text" id="displayName" class="input" value="John Doe" />
+    </div>
+    <div class="form-group">
+      <label for="personalEmail">Personal Email</label>
+      <input type="email" id="personalEmail" class="input" value="john.personal@example.com" />
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" class="input" value="+971 50 123 4567" />
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" class="input" value="1990-01-01" />
+    </div>
+    <div class="form-group">
+      <label for="nationality">Nationality</label>
+      <input type="text" id="nationality" class="input" value="UAE" />
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select id="gender" class="input">
+        <option value="Male" selected>Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="fatherName">Father's Name</label>
+      <input type="text" id="fatherName" class="input" value="Ali Hassan" />
+    </div>
+    <div class="form-group">
+      <label for="motherName">Mother's Name</label>
+      <input type="text" id="motherName" class="input" value="Fatima Hassan" />
+    </div>
+    <div class="form-group">
+      <label for="maritalStatus">Marital Status</label>
+      <select id="maritalStatus" class="input">
+        <option value="Single" selected>Single</option>
+        <option value="Married">Married</option>
+        <option value="Divorced">Divorced</option>
+        <option value="Widowed">Widowed</option>
+      </select>
+    </div>
+
+    <!-- Dependent Block in Edit -->
+    <div id="dependent-section" style="display: none; margin-top: 1rem; border-top: 1px solid #ccc; padding-top: 1rem;">
+      <h3>Dependent Details</h3>
+
+      <div class="form-group">
+        <label for="spouseName">Spouse Name</label>
+        <input type="text" id="spouseName" class="input" />
+      </div>
+      <div class="form-group">
+        <label for="spouseGender">Spouse Gender</label>
+        <input type="text" id="spouseGender" class="input" readonly />
+      </div>
+      <div class="form-group">
+        <label for="spousePhone">Spouse Phone</label>
+        <input type="tel" id="spousePhone" class="input" />
+      </div>
+      <div class="form-group">
+        <label for="numChildren">No. of Children</label>
+        <input type="number" id="numChildren" class="input" min="0" value="0" />
+      </div>
+
+      <!-- Dynamic Children Section -->
+      <div id="children-details"></div>
+    </div>
+
+    <!-- Submit / Cancel -->
+    <div class="edit-buttons">
+      <button type="button" class="button save-section-btn" data-section="personal-info">Submit for HR Approval</button>
+      <button type="button" class="button outline cancel-section-btn" data-section="personal-info">Cancel</button>
+    </div>
+  </div>
+</div> <!-- End Personal Info Section -->
+<!-- Education Section -->
+<div class="profile-section" id="education-section">
+  <div class="section-header">
+    <h2>Education Details</h2>
+    <i class="fa-solid fa-pen edit-icon" data-section="education"></i>
+  </div>
+
+  <!-- View Mode -->
+  <div class="section-view">
+    <p>Highest Degree: <span id="viewEmployeeDegree">Bachelor</span></p>
+    <p>University / College: <span id="viewEmployeeUniversity">ABC University</span></p>
+    <p>Year of Graduation: <span id="viewEmployeeGraduationYear">2012</span></p>
+  </div>
+
+  <!-- Edit Mode -->
+  <div class="section-edit" style="display: none;">
+    <div class="form-group">
+      <label for="employeeDegree">Highest Degree</label>
+      <select id="employeeDegree" class="input">
+        <option value="">-- Select Degree --</option>
+        <option value="HighSchool">High School</option>
+        <option value="Diploma">Diploma</option>
+        <option value="Bachelor" selected>Bachelor</option>
+        <option value="Master">Master</option>
+        <option value="Doctorate">Doctorate</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="employeeUniversity">University / College</label>
+      <input type="text" id="employeeUniversity" class="input" value="ABC University" />
+    </div>
+    <div class="form-group">
+      <label for="employeeGraduationYear">Year of Graduation</label>
+      <input type="number" id="employeeGraduationYear" class="input" value="2012" min="1900" max="2099" />
+    </div>
+
+    <!-- Submit / Cancel -->
+    <div class="edit-buttons">
+      <button type="button" class="button save-section-btn" data-section="education">Submit for HR Approval</button>
+      <button type="button" class="button outline cancel-section-btn" data-section="education">Cancel</button>
+    </div>
+  </div>
+</div> <!-- End Education Section -->
+<!-- Address Section -->
+<div class="profile-section" id="address-section">
+  <div class="section-header">
+    <h2>Address</h2>
+    <i class="fa-solid fa-pen edit-icon" data-section="address"></i>
+  </div>
+
+  <!-- View Mode -->
+  <div class="section-view">
+    <p>Address Line 1: <span id="viewAddress1">123 Main Street</span></p>
+    <p>Address Line 2: <span id="viewAddress2">Apartment 101</span></p>
+    <p>City: <span id="viewCity">Dubai</span></p>
+    <p>State: <span id="viewState">Dubai</span></p>
+    <p>ZIP: <span id="viewZip">00000</span></p>
+    <p>Country: <span id="viewCountry">UAE</span></p>
+  </div>
+
+  <!-- Edit Mode -->
+  <div class="section-edit" style="display: none;">
+    <div class="form-group">
+      <label for="address1">Address Line 1</label>
+      <input type="text" id="address1" class="input" value="123 Main Street" />
+    </div>
+    <div class="form-group">
+      <label for="address2">Address Line 2</label>
+      <input type="text" id="address2" class="input" value="Apartment 101" />
+    </div>
+    <div class="form-group">
+      <label for="city">City</label>
+      <input type="text" id="city" class="input" value="Dubai" />
+    </div>
+    <div class="form-group">
+      <label for="state">State</label>
+      <input type="text" id="state" class="input" value="Dubai" />
+    </div>
+    <div class="form-group">
+      <label for="zip">ZIP</label>
+      <input type="text" id="zip" class="input" value="00000" />
+    </div>
+    <div class="form-group">
+      <label for="country">Country</label>
+      <input type="text" id="country" class="input" value="UAE" />
+    </div>
+
+    <!-- Submit / Cancel -->
+    <div class="edit-buttons">
+      <button type="button" class="button save-section-btn" data-section="address">Submit for HR Approval</button>
+      <button type="button" class="button outline cancel-section-btn" data-section="address">Cancel</button>
+    </div>
+  </div>
+</div> <!-- End Address Section -->
+<!-- Bank Details Section -->
+<div class="profile-section" id="bank-details-section">
+  <div class="section-header">
+    <h2>Bank Details</h2>
+    <i class="fa-solid fa-pen edit-icon" data-section="bank-details"></i>
+  </div>
+
+  <!-- View Mode -->
+  <div class="section-view">
+    <p>Bank Name: <span id="viewBankName">XYZ Bank</span></p>
+    <p>Account Number: <span id="viewAccountNumber">1234567890</span></p>
+    <p>IBAN: <span id="viewIban">AE12345678901234567890</span></p>
+    <p>SWIFT Code: <span id="viewSwift">XYZBAEAD</span></p>
+    <p>Branch: <span id="viewBranch">Dubai Main Branch</span></p>
+  </div>
+
+  <!-- Edit Mode -->
+  <div class="section-edit" style="display: none;">
+    <div class="form-group">
+      <label for="bankName">Bank Name</label>
+      <input type="text" id="bankName" class="input" value="XYZ Bank" />
+    </div>
+    <div class="form-group">
+      <label for="accountNumber">Account Number</label>
+      <input type="text" id="accountNumber" class="input" value="1234567890" />
+    </div>
+    <div class="form-group">
+      <label for="iban">IBAN</label>
+      <input type="text" id="iban" class="input" value="AE12345678901234567890" />
+    </div>
+    <div class="form-group">
+      <label for="swift">SWIFT Code</label>
+      <input type="text" id="swift" class="input" value="XYZBAEAD" />
+    </div>
+    <div class="form-group">
+      <label for="branch">Branch</label>
+      <input type="text" id="branch" class="input" value="Dubai Main Branch" />
+    </div>
+
+    <!-- Submit / Cancel -->
+    <div class="edit-buttons">
+      <button type="button" class="button save-section-btn" data-section="bank-details">Submit for HR Approval</button>
+      <button type="button" class="button outline cancel-section-btn" data-section="bank-details">Cancel</button>
+    </div>
+  </div>
+</div> <!-- End Bank Details Section -->
+<!-- Documents Section -->
+<div class="profile-section" id="documents-section">
+  <div class="section-header">
+    <h2>Documents</h2>
+    <i class="fa-solid fa-pen edit-icon" data-section="documents"></i>
+  </div>
+
+  <!-- View Mode -->
+  <div class="section-view">
+<p>
+  Emirates ID Number: <span id="viewEmiratesIdNumber"></span>
+  &nbsp; <a id="viewEmiratesIdLink" href="#" target="_blank" style="display: none;">[View Document]</a>
+</p>
+<p>
+  Passport Number: <span id="viewPassportNumber"></span>
+  &nbsp; <a id="viewPassportLink" href="#" target="_blank" style="display: none;">[View Document]</a>
+</p>
+<p>
+  Visa Number: <span id="viewVisaNumber"></span>
+  &nbsp; <a id="viewVisaLink" href="#" target="_blank" style="display: none;">[View Document]</a>
+</p>   
+  </div>
+
+  <!-- Edit Mode -->
+  <div class="section-edit" style="display: none;">
+    <div class="form-group">
+      <label for="emiratesIdNumber">Emirates ID Number</label>
+      <input type="text" id="emiratesIdNumber" class="input" value="784-1987-1234567-1" />
+    </div>
+    <div class="form-group">
+      <label for="passportNumber">Passport Number</label>
+      <input type="text" id="passportNumber" class="input" value="P9876543" />
+    </div>
+    <div class="form-group">
+      <label for="visaNumber">Visa Number</label>
+      <input type="text" id="visaNumber" class="input" value="VISA123456" />
+    </div>
+
+    <!-- Uploads -->
+    <div class="form-group">
+      <label for="emiratesId">Upload Emirates ID</label>
+      <input type="file" id="emiratesId" class="input" />
+    </div>
+    <div class="form-group">
+      <label for="passport">Upload Passport Copy</label>
+      <input type="file" id="passport" class="input" />
+    </div>
+    <div class="form-group">
+      <label for="visa">Upload Visa Copy</label>
+      <input type="file" id="visa" class="input" />
+    </div>
+
+    <!-- Submit / Cancel -->
+    <div class="edit-buttons">
+      <button type="button" class="button save-section-btn" data-section="documents">Submit for HR Approval</button>
+      <button type="button" class="button outline cancel-section-btn" data-section="documents">Cancel</button>
+    </div>
+  </div>
+</div> <!-- End Documents Section -->
+<!-- Emergency Contact Section -->
+<div class="profile-section" id="emergency-contact-section">
+  <div class="section-header">
+    <h2>Emergency Contact</h2>
+    <i class="fa-solid fa-pen edit-icon" data-section="emergency-contact"></i>
+  </div>
+
+  <!-- View Mode -->
+  <div class="section-view">
+    <p>Relationship: <span id="viewEmergencyRelationship">Father</span></p>
+    <p>Contact Name: <span id="viewEmergencyName">Ali Hassan</span></p>
+    <p>Contact Phone: <span id="viewEmergencyPhone">+971 50 999 8888</span></p>
+  </div>
+
+  <!-- Edit Mode -->
+  <div class="section-edit" style="display: none;">
+    <div class="form-group">
+      <label for="emergencyRelationship">Relationship</label>
+      <select id="emergencyRelationship" class="input">
+        <!-- Spouse will be dynamically added by JS if Married -->
+        <option value="Father" selected>Father</option>
+        <option value="Mother">Mother</option>
+        <option value="Brother/Sister">Brother / Sister</option>
+        <option value="Other Relative">Other Relative</option>
+        <option value="Friend">Friend</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="emergencyName">Contact Name</label>
+      <input type="text" id="emergencyName" class="input" value="Ali Hassan" />
+    </div>
+    <div class="form-group">
+      <label for="emergencyPhone">Contact Phone</label>
+      <input type="tel" id="emergencyPhone" class="input" value="+971 50 999 8888" />
+    </div>
+
+    <!-- Submit / Cancel -->
+    <div class="edit-buttons">
+      <button type="button" class="button save-section-btn" data-section="emergency-contact">Submit for HR Approval</button>
+      <button type="button" class="button outline cancel-section-btn" data-section="emergency-contact">Cancel</button>
+    </div>
+  </div>
+</div> <!-- End Emergency Contact Section -->
+
+</section> <!-- End profile-sections -->
+
+</main>
+
+<!-- FOOTER -->
+<div id="footer-placeholder"></div>
+
+<!-- JS -->
+<script src="components/navbar5.js" defer></script>
+<script src="components/footer4.js" defer></script>
+<script src="profile.js" defer></script>
+
+</body>
+</html>
+
+

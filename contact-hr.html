@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Contact HR - GBS Employee Dashboard</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components/navbar5.css" />
+  <link rel="stylesheet" href="components/footer4.css" />
+  <link rel="stylesheet" href="contact-hr.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar-placeholder"></div>
+
+<!-- MAIN CONTENT -->
+<main class="profile-layout">
+  <section class="profile-sections">
+
+    <!-- Page Header -->
+    <div class="contact-hr-card">
+      <h2>Contact HR</h2>
+    
+
+    <!-- Radio Buttons to Select Form -->
+    <div class="form-group">
+      <label>Select Request Type:</label>
+      <div>
+        <input type="radio" id="optionGeneralHR" name="requestType" value="generalHR" checked />
+        <label for="optionGeneralHR">General HR Request</label>
+      </div>
+      <div>
+        <input type="radio" id="optionCertificate" name="requestType" value="certificate" />
+        <label for="optionCertificate">Certificate Request</label>
+      </div>
+    </div>
+
+    <!-- General HR Request Form -->
+    <div id="general-hr-form" class="contact-form">
+      <div class="form-group">
+        <label>Category</label>
+        <select id="generalCategory" class="input">
+          <option value="">-- Select Category --</option>
+          <option value="Payroll">Payroll</option>
+          <option value="Leave">Leave</option>
+          <option value="Visa">Visa / Immigration</option>
+          <option value="General HR">General HR</option>
+          <option value="Grievance">Grievance / Complaint</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" id="generalSubject" class="input" />
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea id="generalMessage" class="textarea"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Attachment (optional)</label>
+        <input type="file" id="generalAttachment" class="input" />
+      </div>
+      <div class="edit-buttons">
+        <button type="button" id="submitGeneralHR" class="button">Submit</button>
+      </div>
+    </div>
+
+    <!-- Certificate Request Form -->
+    <div id="certificate-request-form" class="contact-form" style="display: none;">
+      <div class="form-group">
+        <label>Certificate Type</label>
+        <select id="certificateType" class="input">
+          <option value="">-- Select Certificate Type --</option>
+          <option value="Salary Certificate">Salary Certificate</option>
+          <option value="Experience Letter">Experience Letter</option>
+          <option value="NOC">NOC</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label>Purpose of Request</label>
+        <textarea id="certificatePurpose" class="textarea"></textarea>
+      </div>
+      <!-- Addressee (Reason Type) -->
+<div class="form-group">
+  <label>Addressee</label>
+  <div>
+    <input type="radio" id="addresseeToWhom" name="addresseeType" value="To Whom It May Concern" checked />
+    <label for="addresseeToWhom">To Whom It May Concern</label>
+  </div>
+  <div>
+    <input type="radio" id="addresseeOther" name="addresseeType" value="Other" />
+    <label for="addresseeOther">Other</label>
+  </div>
+</div>
+
+<!-- Other Addressee (shows only if "Other" is selected) -->
+<div class="form-group" id="otherAddresseeGroup" style="display: none;">
+  <label for="otherAddressee">Other Addressee</label>
+  <input type="text" id="otherAddressee" class="input" />
+</div>
+
+<!-- Language Selection -->
+<div class="form-group">
+  <label>Language</label>
+  <select id="certificateLanguage" class="input">
+    <option value="">-- Select Language --</option>
+    <option value="English">English</option>
+    <option value="Arabic">Arabic</option>
+    <option value="Dual">Dual</option>
+  </select>
+</div>
+
+<div class="form-group">
+        <label>Attachment (optional)</label>
+        <input type="file" id="certificateAttachment" class="input" />
+      </div>
+      <div class="form-group checkbox-group">
+  <input type="checkbox" id="certificateTerms" />
+  <label for="certificateTerms">I accept the <a href="privacy-policy.html" target="_blank">Privacy Policy</a>.</label>
+</div>
+      <div class="edit-buttons">
+        <button type="button" id="submitCertificateRequest" class="button">Submit</button>
+      </div>
+    </div>
+</div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<div id="footer-placeholder"></div>
+
+<!-- JS -->
+<script src="components/navbar5.js" defer></script>
+<script src="components/footer4.js" defer></script>
+<script src="contact-hr.js" defer></script>
+
+</body>
+</html>

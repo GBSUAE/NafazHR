@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Travel Request - GBS Employee Dashboard</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components/navbar5.css" />
+  <link rel="stylesheet" href="components/footer4.css" />
+  <link rel="stylesheet" href="travel-request.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar-placeholder"></div>
+
+<!-- MAIN CONTENT -->
+<main class="travel-request-container">
+  <h1>TRAVEL REQUEST FORM</h1>
+
+  <form class="travel-request-form">
+
+    <!-- Travel Type * -->
+    <div class="form-group">
+      <label for="travelType">Travel Type *</label>
+      <select id="travelType" class="input" required>
+        <option value="">-- Type of Travel --</option>
+        <option value="ClientVisit">Client Visit</option>
+        <option value="OfficeErrand">Office Errand</option>
+        <option value="Meeting">Meeting</option>
+      </select>
+    </div>
+
+    <!-- From Date * & To Date * -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="fromDate">From Date *</label>
+        <input type="date" id="fromDate" class="input" required />
+      </div>
+      <div class="form-group">
+        <label for="toDate">To Date *</label>
+        <input type="date" id="toDate" class="input" required />
+      </div>
+    </div>
+
+    <!-- Attachment -->
+    <div class="form-group">
+      <label id="attachment-label" for="attachment">Attachment</label>
+      <input type="file" id="attachment" class="input" />
+    </div>
+
+    <!-- Destination / Location * -->
+    <div class="form-group">
+      <label for="destination">Destination / Location *</label>
+      <input type="text" id="destination" class="input" placeholder="Enter location or destination" required />
+    </div>
+
+    <!-- Purpose of Visit -->
+    <div class="form-group">
+      <label for="purpose">Purpose of Visit</label>
+      <input type="text" id="purpose" class="input" placeholder="Enter purpose of visit" />
+    </div>
+
+    <!-- Note -->
+    <div class="form-group">
+      <label for="note">Note</label>
+      <textarea id="note" class="textarea" rows="3" placeholder=""></textarea>
+    </div>
+
+    <!-- Mode of Transport * -->
+    <div class="form-group">
+      <label for="transportMode">Mode of Transport *</label>
+      <select id="transportMode" class="input" required>
+        <option value="">-- Select Mode --</option>
+        <option value="Air">Air</option>
+        <option value="SelfDrive">Self Drive Car</option>
+        <option value="Train">Train</option>
+        <option value="Taxi">Taxi / Cab</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <!-- DRAMA FIELDS -->
+
+    <!-- Air -->
+    <div class="form-group" id="air-fields" style="display: none;">
+      <label for="flightNumber">Preferred Flight Number (optional)</label>
+      <input type="text" id="flightNumber" class="input" placeholder="Enter flight number" />
+
+      <label for="flightTime">Preferred Time</label>
+      <select id="flightTime" class="input">
+        <option value="">-- Select Time --</option>
+        <option value="EarlyMorning">Early Morning (Before 6 AM)</option>
+        <option value="Morning">6 AM - 12 PM</option>
+        <option value="Afternoon">12 PM - 6 PM</option>
+        <option value="LateNight">Late Night (After 6 PM)</option>
+      </select>
+    </div>
+
+    <!-- Self Drive -->
+    <div class="form-group" id="car-fields" style="display: none;">
+      <label for="expectedKm">Expected KM (Up & Down)</label>
+      <input type="number" id="expectedKm" class="input" placeholder="Enter total KM" />
+    </div>
+
+    <!-- Train -->
+    <div class="form-group" id="train-fields" style="display: none;">
+      <label for="trainNumber">Train Number (optional)</label>
+      <input type="text" id="trainNumber" class="input" placeholder="Enter train number" />
+
+      <label for="trainTime">Preferred Time</label>
+      <select id="trainTime" class="input">
+        <option value="">-- Select Time --</option>
+        <option value="EarlyMorning">Early Morning (Before 6 AM)</option>
+        <option value="Morning">6 AM - 12 PM</option>
+        <option value="Afternoon">12 PM - 6 PM</option>
+        <option value="LateNight">Late Night (After 6 PM)</option>
+      </select>
+    </div>
+
+    <!-- Taxi -->
+    <div class="form-group" id="taxi-fields" style="display: none;">
+      <div class="checkbox-group">
+        <input type="checkbox" id="taxiAdminBooking" />
+        <label for="taxiAdminBooking">Request Admin to book Taxi / Cab</label>
+      </div>
+    </div>
+
+    <!-- Other -->
+    <div class="form-group" id="other-fields" style="display: none;">
+      <label for="otherTransport">Please specify Mode of Transport details</label>
+      <input type="text" id="otherTransport" class="input" placeholder="Enter details" />
+    </div>
+
+    <!-- Terms & Submit -->
+    <div class="form-group checkbox-group">
+      <input type="checkbox" id="terms" required checked />
+      <label for="terms">I accept the <a href="#">Travel Policy</a></label>
+    </div>
+
+    <button type="submit" class="button" id="submitBtn" disabled>Submit</button>
+
+  </form>
+</main>
+
+<!-- FOOTER -->
+<div id="footer-placeholder"></div>
+
+<!-- JS -->
+<script src="components/navbar5.js" defer></script>
+<script src="components/footer4.js" defer></script>
+<script src="travel-request.js" defer></script>
+
+</body>
+</html>

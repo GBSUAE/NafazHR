@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>GBS Employee Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components/navbar5.css" />
+  <link rel="stylesheet" href="components/footer4.css" />
+  <link rel="stylesheet" href="index.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar-placeholder"></div>
+
+<!-- DASHBOARD CONTENT -->
+<div class="dashboard-container">
+
+  <!-- HERO SECTION -->
+  <div class="dashboard-hero">
+    <div class="dashboard-hero-text">
+      <h1 class="dashboard-hero-heading">WELCOME</h1>
+      <h2 class="dashboard-hero-name">{{Employee Name}}</h2>
+      <p class="dashboard-hero-description">
+        Stay connected with your HR services. View your leave balance, submit new requests,
+        track assigned assets, manage travel plans, and access the latest HR updates.
+        Designed to simplify your experience and keep you informed.
+      </p>
+
+      <div class="dashboard-hero-actions">
+        <a href="apply-leave.html" class="button">Apply Leave</a>
+        <a href="travel-request.html" class="button">Travel Request</a>
+        <a href="contact-hr.html" class="button outline">Contact HR</a>
+      </div>
+    </div>
+
+    <div class="dashboard-hero-photo">
+      <img src="public/openart-image_tn4wx41m_1748897369885_raw-1400w.jpg" alt="Employee Photo" />
+    </div>
+  </div>
+
+  <!-- Dashboard Stats -->
+  <div class="dashboard-stats">
+    <div class="dashboard-stat">
+      <h2>12 Days</h2>
+      <p>Annual Leaves Remaining</p>
+    </div>
+    <div class="dashboard-stat">
+      <h2>2 Pending</h2>
+      <p>Travel Requests</p>
+    </div>
+    <div class="dashboard-stat">
+      <h2>1 Asset</h2>
+      <p>Assigned Assets</p>
+    </div>
+    <div class="dashboard-stat">
+      <h2>Active</h2>
+      <p>Employee Status</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div id="footer-placeholder"></div>
+
+<!-- SCRIPTS -->
+<script src="components/navbar5.js" defer></script>
+<script src="components/footer4.js" defer></script>
+<script src="index.js" defer></script>
+
+</body>
+</html>

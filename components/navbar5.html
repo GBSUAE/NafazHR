@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Navbar5 Component</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="components/navbar5.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="navbar5">
+  <!-- Left: Logo -->
+  <div class="navbar5-left">
+    <img src="public/logoipsum-376.svg" alt="Client Logo" class="navbar5-logo" />
+</div>
+
+  <!-- Right: Links + Profile -->
+  <div class="navbar5-right">
+    <!-- Links -->
+    <nav class="navbar5-links">
+      <a href="index.html">Dashboard</a>
+      <a href="apply-leave.html">Apply Leave</a>
+      <a href="travel-request.html">Travel Request</a>
+      <a href="contact-hr.html">Contact HR</a>
+    </nav>
+
+    <!-- Profile -->
+    <div class="navbar5-profile">
+      <img src="public/openart-image_tn4wx41m_1748897369885_raw-200h.jpg" alt="Profile" class="navbar5-profile-img" onclick="toggleProfileDropdown()" />
+      <div class="navbar5-profile-dropdown" id="profileDropdown">
+        <a href="profile.html">Profile</a>
+        <a href="change-password.html">Change Password</a>
+        <a href="#">Log Out</a>
+      </div>
+    </div>
+
+    <!-- Burger -->
+    <div class="navbar5-burger" onclick="toggleBurgerMenu()">☰</div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="navbar5-mobile-menu" id="mobileMenu">
+    <a href="index.html">Dashboard</a>
+    <a href="apply-leave.html">Apply Leave</a>
+    <a href="travel-request.html">Travel Request</a>
+    <a href="contact-hr.html">Contact HR</a>
+    <a href="profile.html">Profile</a>
+    <a href="change-password.html">Change Password</a>
+    <a href="#">Log Out</a>
+  </div>
+</header>
+
+<script src="components/navbar5.js" defer></script>
+</body>
+</html>

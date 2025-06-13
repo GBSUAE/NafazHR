@@ -1,0 +1,153 @@
+/* FOOTER4 CSS — FINAL CLEAN */
+
+.footer4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-family: var(--font-family);
+}
+
+/* Top Row */
+.footer4-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Left: Logo */
+.footer4-left {
+  font-weight: bold;
+  font-size: 18px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+/* Center: Policies Links */
+.footer4-policies {
+  display: flex;
+  gap: var(--spacing-lg);
+}
+
+.footer4-policies a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer4-policies a:hover {
+  text-decoration: underline;
+}
+
+/* Right: Copyright */
+.footer4-right {
+  font-size: 14px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+/* Mobile: Policies Toggle Button */
+.footer4-policies-toggle button {
+  background-color: var(--primary-color-dark);
+  color: var(--secondary-color);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.footer4-policies-toggle button:hover {
+  background-color: var(--link-hover-color);
+}
+
+.footer4-policies-dropdown {
+  display: none;
+  flex-direction: column;
+  background: var(--primary-color);
+  margin-top: var(--spacing-xs);
+}
+
+.footer4-policies-dropdown a {
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--secondary-color);
+  text-decoration: none;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer4-policies-dropdown a:hover {
+  background: var(--primary-color-dark);
+}
+
+/* Bottom: GBS Logo */
+.footer4-bottom {
+  margin-top: var(--spacing-sm);
+  text-align: center;
+}
+
+.footer4-gbs-logo {
+  height: 24px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.footer4-gbs-logo:hover {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+    width: 100%;
+    margin: var(--spacing-sm) 0;
+  }
+
+  .footer4-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer4-right {
+    width: 100%;
+    text-align: center;
+    margin-top: var(--spacing-sm);
+  }
+}
+
+@media (min-width: 769px) {
+  .desktop-only {
+    display: flex;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+}
+
+.footer4-client-logo {
+  height: 32px;
+  object-fit: contain;
+}
+
+.footer4-powered {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.footer4-gbs-logo {
+  height: 16px;
+  opacity: 0.8;
+}
+
