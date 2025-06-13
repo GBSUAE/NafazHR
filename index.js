@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
       loginBlock.style.display = 'none';
     });
 }, 500); // optional delay
-
+}); // ✅ This closing bracket was missing
 
   // === Login ===
   loginButton.addEventListener('click', function() {
