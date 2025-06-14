@@ -1,4 +1,4 @@
-document.title = "GBS123 HR Portal";
+document.title = "DEMO45 HR Portal";
 
 const navbarTitle = document.querySelector('.navbar-title');
 if (navbarTitle) {
