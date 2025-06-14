@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const forgotPasswordLink = document.getElementById('forgotPasswordLink');
   const loginMessage = document.getElementById('loginMessage');
 
+// === Direct login check ===
+  initDirectLogin();  // call the function
+
   // === Verify Company Code ===
   verifyCompanyCodeButton.addEventListener('click', function() {
     const companyCode = companyCodeInput.value.trim();
@@ -140,3 +143,38 @@ function loadFooterComponent() {
       document.body.appendChild(script);
     });
 }
+
+function getCompanyFromQuery() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('company');
+}
+
+async function initDirectLogin() {
+  const clientCode = getCompanyFromQuery();
+  if (!clientCode) return;
+
+  try {
+    const response = await fetch(`clients/${clientCode}/client.css`, { method: 'HEAD' });
+    if (!response.ok) throw new Error('Client CSS not found');
+
+    // Store and load assets
+    localStorage.setItem("client", clientCode);
+    loadClientBranding(clientCode);
+    loadFooterComponent();
+
+    // Hide company block, show login
+    document.getElementById('company-code-block').style.display = 'none';
+    document.getElementById('login-block').style.display = 'block';
+
+    // Optional note
+    const note = document.getElementById('brand-note');
+    if (note) {
+      note.innerText = `You are logging in to "${clientCode}" HR portal.`;
+    }
+
+  } catch (err) {
+    console.error('Direct login failed:', err);
+  }
+}
+
+
