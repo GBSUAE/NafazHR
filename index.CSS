@@ -1,4 +1,4 @@
-/* === GBS HR Portal Login Page === */
+/* === NafazHR Portal Login Page === */
 
 /* Global */
 body {
@@ -14,7 +14,10 @@ body {
 /* Navbar */
 .navbar {
   background-color: #181b80;
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
+  height: 80px;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-content {
@@ -23,8 +26,8 @@ body {
 }
 
 .navbar-logo {
-  height: 40px;
-  margin-right: 0.5rem;
+  height: 60px;
+  margin-right: 0.75rem;
 }
 
 .navbar-title {
@@ -147,4 +150,24 @@ body {
 .footer a {
   color: #fff;
   text-decoration: underline;
+}
+
+/* Responsive Adjustments for Mobile */
+@media (max-width: 600px) {
+  .navbar-logo {
+    height: 48px;
+  }
+
+  .navbar-title {
+    font-size: 1rem;
+  }
+
+  .login-block {
+    padding: 1.5rem;
+  }
+
+  .button,
+  .button-rounded {
+    font-size: 0.95rem;
+  }
 }

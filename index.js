@@ -125,22 +125,43 @@ function loadClientBranding(clientCode) {
 
 function loadFooterComponent() {
   fetch('components/footer4.html')
-    .then(res => res.text())
+    .then(res => {
+      if (!res.ok) throw new Error('Custom footer not found');
+      return res.text();
+    })
     .then(html => {
       const footerContainer = document.getElementById('footerContainer');
       footerContainer.innerHTML = html;
 
-      // Load footer CSS
+      // Hide static footer
+      const staticFooter = document.getElementById('staticFooter');
+      if (staticFooter) staticFooter.style.display = 'none';
+
+      // Load custom footer styles and scripts
       const css = document.createElement('link');
       css.rel = 'stylesheet';
       css.href = 'components/footer4.css';
       document.head.appendChild(css);
 
-      // Load footer JS
       const script = document.createElement('script');
       script.src = 'components/footer4.js';
       script.defer = true;
       document.body.appendChild(script);
+    })
+    .catch(() => {
+      // Fallback footer content if footer4.html fails
+      const fallbackHTML = `
+        <footer class="footer">
+          &copy; 2025 NafazHR. Powered by Gap Bridging Solutions.
+          Visit <a href="https://nafazhr.com" target="_blank">our website</a> to learn more.
+        </footer>
+      `;
+      const footerContainer = document.getElementById('footerContainer');
+      footerContainer.innerHTML = fallbackHTML;
+
+      // Hide static footer if still visible
+      const staticFooter = document.getElementById('staticFooter');
+      if (staticFooter) staticFooter.style.display = 'none';
     });
 }
 
