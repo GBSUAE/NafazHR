@@ -73,7 +73,7 @@ document.getElementById('loader').style.display = 'block'; // ✅ show loader
           && userId === 'EM123'
           && password === 'Welcome@123') {
         loginMessage.textContent = 'Login successful! Redirecting to Demo Dashboard...';
-        window.location.href = 'https://gbsuae.github.io/Demo_Dashboard_Employee/';
+        window.location.href = 'https://gbsuae.github.io/NafazHR/dashboard.html';
       } else {
         loginMessage.textContent = 'Invalid User ID or Password.';
       }
