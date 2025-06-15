@@ -144,7 +144,7 @@ function loadClientBranding(clientCode) {
   if (logo) {
     logo.src = nafazContext.logoPath;
     logo.onerror = () => {
-      logo.src = 'public/NafazHR_Header_Vector.svg'; // fallback logo
+      logo.src = './public/NafazHR_Header_Vector.svg'; // fallback logo
     };
   }
 
@@ -152,7 +152,7 @@ function loadClientBranding(clientCode) {
   console.log("Client branding loaded for:", window.nafazContext.companyCode);
 }
 
-function loadFooterComponent() {
+function loadFooterComponent(isVerified = false) {
   fetch('components/footer4.html')
     .then(res => {
       if (!res.ok) throw new Error('Custom footer not found');
@@ -164,7 +164,7 @@ function loadFooterComponent() {
 
       // Hide static footer
       const staticFooter = document.getElementById('staticFooter');
-      if (staticFooter) staticFooter.style.display = 'none';
+      if (isVerified && staticFooter) staticFooter.style.display = 'none';
 
       // Load custom footer styles and scripts
       const css = document.createElement('link');
@@ -190,7 +190,7 @@ function loadFooterComponent() {
 
       // Hide static footer if still visible
       const staticFooter = document.getElementById('staticFooter');
-      if (staticFooter) staticFooter.style.display = 'none';
+      if (isVerified && staticFooter) staticFooter.style.display = 'none';
     });
 }
 
