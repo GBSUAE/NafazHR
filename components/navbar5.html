@@ -15,7 +15,7 @@
 <header class="navbar5">
   <!-- Left: Logo -->
   <div class="navbar5-left">
-    <img src="public/logoipsum-376.svg" alt="Client Logo" class="navbar5-logo" />
+    <img id="navbarLogo" alt="Company Logo" class="navbar5-logo" />
 </div>
 
   <!-- Right: Links + Profile -->
@@ -29,18 +29,19 @@
     </nav>
 
     <!-- Profile -->
-    <div class="navbar5-profile">
-      <img src="public/openart-image_tn4wx41m_1748897369885_raw-200h.jpg" alt="Profile" class="navbar5-profile-img" onclick="toggleProfileDropdown()" />
-      <div class="navbar5-profile-dropdown" id="profileDropdown">
-        <a href="profile.html">Profile</a>
-        <a href="change-password.html">Change Password</a>
-        <a href="#">Log Out</a>
-      </div>
-    </div>
-
-    <!-- Burger -->
-    <div class="navbar5-burger" onclick="toggleBurgerMenu()">☰</div>
+<div id="profileAvatarContainer" class="navbar5-profile" onclick="toggleProfileDropdown()">
+  <!-- JS will inject avatar image or initials here -->
+  <div class="navbar5-profile-dropdown" id="profileDropdown">
+    <a href="profile.html">Profile</a>
+    <a href="change-password.html">Change Password</a>
+    <a href="#">Log Out</a>
   </div>
+</div>
+
+<!-- Mobile: Avatar triggers menu (instead of ☰) -->
+<div id="mobileProfileTrigger" class="navbar5-profile mobile-only" onclick="toggleBurgerMenu()">
+  <!-- JS will inject same avatar or initials here -->
+</div>
 
   <!-- Mobile Menu -->
   <div class="navbar5-mobile-menu" id="mobileMenu">
@@ -53,7 +54,7 @@
     <a href="#">Log Out</a>
   </div>
 </header>
-
+<script src="components/api.js"></script> <!-- this defines nafazContext -->
 <script src="components/navbar5.js" defer></script>
 </body>
 </html>
