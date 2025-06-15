@@ -32,7 +32,7 @@ document.getElementById('loader').style.display = 'block'; // ✅ show loader
   const clientCode = companyCode.toLowerCase();
   const testCssUrl = `clients/${clientCode}/client.css`;
 
-  fetch(testCssUrl, { method: 'HEAD' })
+  fetch(testCssUrl)
     .then((res) => {
       if (res.ok) {
         companyCodeMessage.textContent = 'Company Code verified!';
@@ -207,9 +207,9 @@ async function initDirectLogin() {
 document.getElementById('loader').style.display = 'block';
 
   try {
-  const response = await fetch(`clients/${clientCode}/client.css`, { method: 'HEAD' });
+  const response = await fetch(`clients/${clientCode}/client.css`);
   if (!response.ok) throw new Error('Client CSS not found');
-
+await response.blob(); // Ensure completion
   localStorage.setItem("client", clientCode);
   loadClientBranding(clientCode);
   loadFooterComponent();
@@ -238,6 +238,7 @@ document.getElementById('loader').style.display = 'block';
 companyCodeInput.addEventListener('keypress', function(e) {
   if (e.key === 'Enter') verifyCompanyCodeButton.click();
 });
+  }); // <== this closes the DOMContentLoaded
 passwordInput.addEventListener('keypress', function(e) {
   if (e.key === 'Enter') loginButton.click();
 });
