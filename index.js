@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     companyCodeMessage.textContent = 'Verifying...';
+document.getElementById('loader').style.display = 'block'; // ✅ show loader
 
     // DEMO MODE — Simulate API
     setTimeout(() => {
@@ -111,11 +112,18 @@ function loadClientBranding(clientCode) {
     logoPath: `clients/${clientCode}/logo.svg`
   };
 
+  // 🚫 Clean up old client.css if already loaded
+  const oldClientCss = document.querySelector('link[href*="clients/"]');
+  if (oldClientCss) {
+    oldClientCss.remove();
+  }
+
   // ✅ 2. Inject client-specific CSS
   const css = document.createElement('link');
   css.rel = 'stylesheet';
   css.href = nafazContext.clientCSS;
   document.head.appendChild(css);
+
 
   // ✅ 3. Inject client-specific JS
   const script = document.createElement('script');
@@ -127,12 +135,13 @@ function loadClientBranding(clientCode) {
   if (logo) {
     logo.src = nafazContext.logoPath;
     logo.onerror = () => {
-      logo.src = 'public/NafazHR_Header_Vector.svg'; // fallback logo
+      logo.src = '/public/NafazHR_Header_Vector.svg'; // fallback logo
     };
   }
-}
 
-console.log("Client branding loaded for:", nafazContext.companyCode);
+  // ✅ 5. Safe log after context is initialized
+  console.log("Client branding loaded for:", window.nafazContext.companyCode);
+}
 
 function loadFooterComponent() {
   fetch('components/footer4.html')
@@ -182,31 +191,53 @@ function getCompanyFromQuery() {
 }
 
 async function initDirectLogin() {
-  const clientCode = getCompanyFromQuery();
-  if (!clientCode) return;
+  const clientCode = getCompanyFromQuery() || localStorage.getItem("client");
 
-  try {
-    const response = await fetch(`clients/${clientCode}/client.css`, { method: 'HEAD' });
-    if (!response.ok) throw new Error('Client CSS not found');
-
-    // Store and load assets
-    localStorage.setItem("client", clientCode);
-    loadClientBranding(clientCode);
+  if (!clientCode) {
+    // 🚨 Fallback to default platform branding
+    loadClientBranding("nafazhr");
     loadFooterComponent();
 
-    // Hide company block, show login
-    document.getElementById('company-code-block').style.display = 'none';
-    document.getElementById('login-block').style.display = 'block';
-
-    // Optional note
-    const note = document.getElementById('brand-note');
-    if (note) {
-      note.innerText = `You are logging in to "${clientCode}" HR portal.`;
-    }
-
-  } catch (err) {
-    console.error('Direct login failed:', err);
+    // Show login block anyway
+    document.getElementById('company-code-block').style.display = 'block';
+    document.getElementById('login-block').style.display = 'none';
+    return;
   }
+
+document.getElementById('loader').style.display = 'block';
+
+  try {
+  const response = await fetch(`clients/${clientCode}/client.css`, { method: 'HEAD' });
+  if (!response.ok) throw new Error('Client CSS not found');
+
+  localStorage.setItem("client", clientCode);
+  loadClientBranding(clientCode);
+  loadFooterComponent();
+
+  document.getElementById('company-code-block').style.display = 'none';
+  document.getElementById('login-block').style.display = 'block';
+
+  const note = document.getElementById('brand-note');
+  if (note) {
+    note.innerText = `You are logging in to "${clientCode}" HR portal.`;
+  }
+
+} catch (err) {
+  console.error('Direct login failed:', err);
+
+    // 👇 Fallback to default NafazHR
+    loadClientBranding("nafazhr");
+    loadFooterComponent();
+
+    document.getElementById('company-code-block').style.display = 'block';
+    document.getElementById('login-block').style.display = 'none';
+ } finally {
+  document.getElementById('loader').style.display = 'none';
 }
 
-
+companyCodeInput.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') verifyCompanyCodeButton.click();
+});
+passwordInput.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') loginButton.click();
+});

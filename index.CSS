@@ -171,3 +171,10 @@ body {
     font-size: 0.95rem;
   }
 }
+
+#brand-note {
+  margin-top: 10px;
+  color: #777;
+  font-size: 0.9rem;
+  text-align: center;
+}
