@@ -200,36 +200,35 @@ function getCompanyFromQuery() {
 }
 
 async function initDirectLogin() {
-  const clientCode = getCompanyFromQuery() || localStorage.getItem("client");
+  const queryClient = getCompanyFromQuery();
 
-  if (!clientCode) {
-    // 🚨 Fallback to default platform branding
+  if (!queryClient) {
+    // 🚨 No ?company → reset everything
+    localStorage.removeItem("client");
+
     loadClientBranding("nafazhr");
     loadFooterComponent();
 
-    // Show login block anyway
     document.getElementById('company-code-block').style.display = 'block';
-    document.getElementById('login-block').style.display = 'none';
+    document.getElementById('login-block').style.display = 'none'; // ✅ HIDE login
     return;
   }
 
-  // Show loader while verifying
+  // Try loading client
+  const clientCode = queryClient.toLowerCase();
   document.getElementById('loader').style.display = 'block';
 
   try {
     const response = await fetch(`clients/${clientCode}/client.css`);
     if (!response.ok) throw new Error('Client CSS not found');
-    await response.blob(); // Ensure file is fully read
+    await response.blob();
 
-    // Save valid company code for future visits
     localStorage.setItem("client", clientCode);
-
-    // Apply branding and show login
     loadClientBranding(clientCode);
     loadFooterComponent();
 
     document.getElementById('company-code-block').style.display = 'none';
-    document.getElementById('login-block').style.display = 'block';
+    document.getElementById('login-block').style.display = 'block'; // ✅ valid client → show login
 
     const note = document.getElementById('brand-note');
     if (note) {
@@ -239,12 +238,13 @@ async function initDirectLogin() {
   } catch (err) {
     console.error('Direct login failed:', err);
 
-    // 👇 Fallback to default NafazHR branding
+    // 🚫 Invalid client → fallback to default, but don't show login
+    localStorage.removeItem("client");
     loadClientBranding("nafazhr");
     loadFooterComponent();
 
     document.getElementById('company-code-block').style.display = 'block';
-    document.getElementById('login-block').style.display = 'none';
+    document.getElementById('login-block').style.display = 'none'; // ✅ HIDE login again
   } finally {
     document.getElementById('loader').style.display = 'none';
   }
