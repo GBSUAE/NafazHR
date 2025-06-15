@@ -43,7 +43,7 @@ document.getElementById('loader').style.display = 'block'; // ✅ show loader
 
         // ✅ Load client-specific branding and footer
         loadClientBranding(clientCode);
-        loadFooterComponent();
+        loadFooterComponent(true);
       } else {
         throw new Error(); // force catch
       }
@@ -207,7 +207,7 @@ async function initDirectLogin() {
     localStorage.removeItem("client");
 
     loadClientBranding("nafazhr");
-    loadFooterComponent();
+    loadFooterComponent(true);
 
     document.getElementById('company-code-block').style.display = 'block';
     document.getElementById('login-block').style.display = 'none'; // ✅ HIDE login
@@ -225,7 +225,7 @@ async function initDirectLogin() {
 
     localStorage.setItem("client", clientCode);
     loadClientBranding(clientCode);
-    loadFooterComponent();
+    loadFooterComponent(true);
 
     document.getElementById('company-code-block').style.display = 'none';
     document.getElementById('login-block').style.display = 'block'; // ✅ valid client → show login
@@ -241,7 +241,7 @@ async function initDirectLogin() {
     // 🚫 Invalid client → fallback to default, but don't show login
     localStorage.removeItem("client");
     loadClientBranding("nafazhr");
-    loadFooterComponent();
+    loadFooterComponent(true);
 
     document.getElementById('company-code-block').style.display = 'block';
     document.getElementById('login-block').style.display = 'none'; // ✅ HIDE login again
