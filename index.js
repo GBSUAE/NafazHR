@@ -211,7 +211,7 @@ async function initDirectLogin() {
 
 // Don’t load client assets if no code is provided
 loadClientBranding(null);    
-loadFooterComponent(true);
+loadFooterComponent(false);
 
     document.getElementById('company-code-block').style.display = 'block';
     document.getElementById('login-block').style.display = 'none'; // ✅ HIDE login
@@ -244,8 +244,8 @@ loadFooterComponent(true);
 
     // 🚫 Invalid client → fallback to default, but don't show login
     localStorage.removeItem("client");
-    loadClientBranding("nafazhr");
-    loadFooterComponent(true);
+    loadClientBranding(null);
+    loadFooterComponent(false);
 
     document.getElementById('company-code-block').style.display = 'block';
     document.getElementById('login-block').style.display = 'none'; // ✅ HIDE login again
