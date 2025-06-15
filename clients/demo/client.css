@@ -1,4 +1,20 @@
 /* DEMO: Teal Blue Theme */
+
+:root {
+  --primary-color: #007b8a;
+  --primary-color-dark: #005f66;
+  --secondary-color: #ffffff;
+
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+
+  --font-family: 'Inter', sans-serif;
+  --border-radius: 6px;
+  --link-hover-color: #004b5c;
+}
+
 body {
   background-color: #f0f9f9;
 }
