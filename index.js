@@ -102,26 +102,37 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadClientBranding(clientCode) {
-  // Load client CSS
+  // ✅ 1. Define nafazContext for global use
+  window.nafazContext = {
+    companyCode: clientCode,
+    userFullName: null,
+    profileImageURL: null,
+    clientCSS: `clients/${clientCode}/client.css`,
+    logoPath: `clients/${clientCode}/logo.svg`
+  };
+
+  // ✅ 2. Inject client-specific CSS
   const css = document.createElement('link');
   css.rel = 'stylesheet';
-  css.href = `clients/${clientCode}/client.css`;
+  css.href = nafazContext.clientCSS;
   document.head.appendChild(css);
 
-  // Load client JS
+  // ✅ 3. Inject client-specific JS
   const script = document.createElement('script');
   script.src = `clients/${clientCode}/client.js`;
   document.body.appendChild(script);
 
-  // Update logo (with fallback)
+  // ✅ 4. Update logo with fallback
   const logo = document.getElementById('logo');
   if (logo) {
-    logo.src = `clients/${clientCode}/logo.svg`;
+    logo.src = nafazContext.logoPath;
     logo.onerror = () => {
-      logo.src = 'public/GBS Logo_White.svg';
+      logo.src = 'public/NafazHR_Header_Vector.svg'; // fallback logo
     };
   }
 }
+
+console.log("Client branding loaded for:", nafazContext.companyCode);
 
 function loadFooterComponent() {
   fetch('components/footer4.html')
