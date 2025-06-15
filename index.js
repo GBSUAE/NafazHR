@@ -29,8 +29,8 @@ document.getElementById('loader').style.display = 'block'; // ✅ show loader
 
     // DEMO MODE — Simulate API
     setTimeout(() => {
-  const clientCode = companyCode.toLowerCase();
-  const testCssUrl = `clients/${clientCode}/client.css`;
+  const companyCode = companyCode.toLowerCase();
+  const testCssUrl = `clients/${companyCode}/client.css`;
 
   fetch(testCssUrl)
     .then((res) => {
@@ -39,11 +39,11 @@ document.getElementById('loader').style.display = 'block'; // ✅ show loader
         companyCodeBlock.style.display = 'none';
         loginBlock.style.display = 'block';
 
-        localStorage.setItem("client", clientCode);
+        localStorage.setItem("client", companyCode);
 
         // ✅ Load client-specific branding and footer
-        loadClientBranding(clientCode);
-        loadFooterComponent(true);
+        loadClientBranding(companyCode);
+        loadFooterComponent(true, companyCode);
       } else {
         throw new Error(); // force catch
       }
@@ -111,8 +111,8 @@ document.getElementById('loader').style.display = 'block'; // ✅ show loader
 
 }); // ✅ closes DOMContentLoaded
 
-function loadClientBranding(clientCode) {
-  if (!clientCode) {
+function loadClientBranding(companyCode) {
+  if (!companyCode) {
     // Hardcode NafazHR default
     const logo = document.getElementById('logo');
     if (logo) logo.src = './public/NafazHR_Header_Vector.svg';
@@ -121,11 +121,11 @@ function loadClientBranding(clientCode) {
   }
 
   window.nafazContext = {
-    companyCode: clientCode,
+    companyCode: companyCode,
     userFullName: null,
     profileImageURL: null,
-    clientCSS: `clients/${clientCode}/client.css`,
-    logoPath: `clients/${clientCode}/logo.svg`
+    companyCSS: `clients/${companyCode}/client.css`,
+    companyLogoPath: `clients/${companyCode}/logo.svg`
   };
 
   // Remove old client.css
@@ -135,28 +135,41 @@ function loadClientBranding(clientCode) {
   // Load CSS
   const css = document.createElement('link');
   css.rel = 'stylesheet';
-  css.href = nafazContext.clientCSS;
+  css.href = nafazContext.companyCSS;
   document.head.appendChild(css);
 
   // Load client JS
   const script = document.createElement('script');
-  script.src = `clients/${clientCode}/client.js`;
+  script.src = `clients/${companyCode}/client.js`;
   document.body.appendChild(script);
 
   // Update logo with fallback
   const logo = document.getElementById('logo');
   if (logo) {
-    logo.src = nafazContext.logoPath;
+    logo.src = nafazContext.companyLogoPath;
     logo.onerror = () => {
       logo.src = './public/NafazHR_Header_Vector.svg';
     };
   }
 
-  console.log("Client branding loaded for:", clientCode);
+  console.log("Client branding loaded for:", companyCode);
 }
 
-function loadFooterComponent(isVerified = false) {
-  fetch('components/footer4.html')
+function loadFooterComponent(isVerified = false, companyCode = null) {
+  if (!companyCode || companyCode.trim() === "") {
+    // No company code, show static fallback
+    const fallbackHTML = `
+      <footer class="footer">
+        &copy; 2025 NafazHR. Powered by Gap Bridging Solutions.
+        Visit <a href="https://nafazhr.com" target="_blank">our website</a> to learn more.
+      </footer>
+    `;
+    const footerContainer = document.getElementById('footerContainer');
+    footerContainer.innerHTML = fallbackHTML;
+    return;
+  }
+
+  fetch(`components/${companyCode}/footer.html`)
     .then(res => {
       if (!res.ok) throw new Error('Custom footer not found');
       return res.text();
@@ -165,23 +178,20 @@ function loadFooterComponent(isVerified = false) {
       const footerContainer = document.getElementById('footerContainer');
       footerContainer.innerHTML = html;
 
-      // Hide static footer
       const staticFooter = document.getElementById('staticFooter');
       if (isVerified && staticFooter) staticFooter.style.display = 'none';
 
-      // Load custom footer styles and scripts
       const css = document.createElement('link');
       css.rel = 'stylesheet';
-      css.href = 'components/footer4.css';
+      css.href = `components/${companyCode}/footer.css`;
       document.head.appendChild(css);
 
       const script = document.createElement('script');
-      script.src = 'components/footer4.js';
+      script.src = `components/${companyCode}/footer.js`;
       script.defer = true;
       document.body.appendChild(script);
     })
     .catch(() => {
-      // Fallback footer content if footer4.html fails
       const fallbackHTML = `
         <footer class="footer">
           &copy; 2025 NafazHR. Powered by Gap Bridging Solutions.
@@ -191,21 +201,19 @@ function loadFooterComponent(isVerified = false) {
       const footerContainer = document.getElementById('footerContainer');
       footerContainer.innerHTML = fallbackHTML;
 
-      // Hide static footer if still visible
       const staticFooter = document.getElementById('staticFooter');
       if (isVerified && staticFooter) staticFooter.style.display = 'none';
     });
 }
-
 function getCompanyFromQuery() {
   const params = new URLSearchParams(window.location.search);
   return params.get('company');
 }
 
 async function initDirectLogin() {
-  const queryClient = getCompanyFromQuery();
+  const queryCompanyCode = getCompanyFromQuery();
 
-  if (!queryClient) {
+  if (!queryCompanyCode) {
     // 🚨 No ?company → reset everything
     localStorage.removeItem("client");
 
@@ -219,24 +227,24 @@ loadFooterComponent(false);
   }
 
   // Try loading client
-  const clientCode = queryClient.toLowerCase();
+  const companyCode = queryCompanyCode.toLowerCase();
   document.getElementById('loader').style.display = 'block';
 
   try {
-    const response = await fetch(`clients/${clientCode}/client.css`);
+    const response = await fetch(`clients/${companyCode}/client.css`);
     if (!response.ok) throw new Error('Client CSS not found');
     await response.blob();
 
-    localStorage.setItem("client", clientCode);
-    loadClientBranding(clientCode);
-    loadFooterComponent(true);
+    localStorage.setItem("client", companyCode);
+    loadClientBranding(companyCode);
+    loadFooterComponent(true, companyCode);
 
     document.getElementById('company-code-block').style.display = 'none';
     document.getElementById('login-block').style.display = 'block'; // ✅ valid client → show login
 
     const note = document.getElementById('brand-note');
     if (note) {
-      note.innerText = `You are logging in to "${clientCode}" HR portal.`;
+      note.innerText = `You are logging in to "${companyCode}" HR portal.`;
     }
 
   } catch (err) {
