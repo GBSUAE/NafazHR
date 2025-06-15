@@ -100,7 +100,16 @@ document.getElementById('loader').style.display = 'block'; // ✅ show loader
     }, 1000);
   });
 
-});
+  // === Keypress bindings inside DOMContentLoaded
+  companyCodeInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') verifyCompanyCodeButton.click();
+  });
+
+  passwordInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') loginButton.click();
+  });
+
+}); // ✅ closes DOMContentLoaded
 
 function loadClientBranding(clientCode) {
   // ✅ 1. Define nafazContext for global use
@@ -193,7 +202,7 @@ function getCompanyFromQuery() {
 async function initDirectLogin() {
   const clientCode = getCompanyFromQuery() || localStorage.getItem("client");
 
-   if (!clientCode) {
+  if (!clientCode) {
     // 🚨 Fallback to default platform branding
     loadClientBranding("nafazhr");
     loadFooterComponent();
@@ -203,53 +212,40 @@ async function initDirectLogin() {
     document.getElementById('login-block').style.display = 'none';
     return;
   }
-    if (e.key === 'Enter') verifyCompanyCodeButton.click();
-  });
 
-    if (e.key === 'Enter') loginButton.click();
-  });
+  // Show loader while verifying
+  document.getElementById('loader').style.display = 'block';
 
-document.getElementById('loader').style.display = 'block';
+  try {
+    const response = await fetch(`clients/${clientCode}/client.css`);
+    if (!response.ok) throw new Error('Client CSS not found');
+    await response.blob(); // Ensure file is fully read
 
- try {
-  const response = await fetch(`clients/${clientCode}/client.css`);
-if (!response.ok) throw new Error('Client CSS not found');
-await response.blob(); // Ensure completion
+    // Save valid company code for future visits
+    localStorage.setItem("client", clientCode);
 
-  localStorage.setItem("client", clientCode);
-  loadClientBranding(clientCode);
-  loadFooterComponent();
+    // Apply branding and show login
+    loadClientBranding(clientCode);
+    loadFooterComponent();
 
-  document.getElementById('company-code-block').style.display = 'none';
-  document.getElementById('login-block').style.display = 'block';
+    document.getElementById('company-code-block').style.display = 'none';
+    document.getElementById('login-block').style.display = 'block';
 
-  const note = document.getElementById('brand-note');
-  if (note) {
-    note.innerText = `You are logging in to "${clientCode}" HR portal.`;
-  }
+    const note = document.getElementById('brand-note');
+    if (note) {
+      note.innerText = `You are logging in to "${clientCode}" HR portal.`;
+    }
 
-} catch (err) {
-  console.error('Direct login failed:', err);
+  } catch (err) {
+    console.error('Direct login failed:', err);
 
-    // 👇 Fallback to default NafazHR
+    // 👇 Fallback to default NafazHR branding
     loadClientBranding("nafazhr");
     loadFooterComponent();
 
     document.getElementById('company-code-block').style.display = 'block';
     document.getElementById('login-block').style.display = 'none';
- } finally {
-  document.getElementById('loader').style.display = 'none';
+  } finally {
+    document.getElementById('loader').style.display = 'none';
+  }
 }
-
-  if (e.key === 'Enter') verifyCompanyCodeButton.click();
-});
-  if (e.key === 'Enter') loginButton.click();
-  });
-  companyCodeInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') verifyCompanyCodeButton.click();
-  });
-
-  passwordInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') loginButton.click();
-  });
-});
