@@ -193,7 +193,7 @@ function getCompanyFromQuery() {
 async function initDirectLogin() {
   const clientCode = getCompanyFromQuery() || localStorage.getItem("client");
 
-  if (!clientCode) {
+   if (!clientCode) {
     // 🚨 Fallback to default platform branding
     loadClientBranding("nafazhr");
     loadFooterComponent();
@@ -203,17 +203,15 @@ async function initDirectLogin() {
     document.getElementById('login-block').style.display = 'none';
     return;
   }
-  companyCodeInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') verifyCompanyCodeButton.click();
   });
 
-  passwordInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') loginButton.click();
   });
 
 document.getElementById('loader').style.display = 'block';
 
-  try {
+ try {
   const response = await fetch(`clients/${clientCode}/client.css`);
 if (!response.ok) throw new Error('Client CSS not found');
 await response.blob(); // Ensure completion
@@ -243,13 +241,15 @@ await response.blob(); // Ensure completion
   document.getElementById('loader').style.display = 'none';
 }
 
-companyCodeInput.addEventListener('keypress', function(e) {
   if (e.key === 'Enter') verifyCompanyCodeButton.click();
 });
-passwordInput.addEventListener('keypress', function(e) {
   if (e.key === 'Enter') loginButton.click();
   });
-});
-passwordInput.addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') loginButton.click();
+  companyCodeInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') verifyCompanyCodeButton.click();
+  });
+
+  passwordInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') loginButton.click();
+  });
 });
