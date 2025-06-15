@@ -203,13 +203,21 @@ async function initDirectLogin() {
     document.getElementById('login-block').style.display = 'none';
     return;
   }
+  companyCodeInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') verifyCompanyCodeButton.click();
+  });
+
+  passwordInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') loginButton.click();
+  });
 
 document.getElementById('loader').style.display = 'block';
 
   try {
   const response = await fetch(`clients/${clientCode}/client.css`);
-  if (!response.ok) throw new Error('Client CSS not found');
+if (!response.ok) throw new Error('Client CSS not found');
 await response.blob(); // Ensure completion
+
   localStorage.setItem("client", clientCode);
   loadClientBranding(clientCode);
   loadFooterComponent();
@@ -238,7 +246,10 @@ await response.blob(); // Ensure completion
 companyCodeInput.addEventListener('keypress', function(e) {
   if (e.key === 'Enter') verifyCompanyCodeButton.click();
 });
-  }); // <== this closes the DOMContentLoaded
+passwordInput.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') loginButton.click();
+  });
+});
 passwordInput.addEventListener('keypress', function(e) {
   if (e.key === 'Enter') loginButton.click();
 });
