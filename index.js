@@ -144,7 +144,7 @@ function loadClientBranding(clientCode) {
   if (logo) {
     logo.src = nafazContext.logoPath;
     logo.onerror = () => {
-      logo.src = '/public/NafazHR_Header_Vector.svg'; // fallback logo
+      logo.src = 'public/NafazHR_Header_Vector.svg'; // fallback logo
     };
   }
 
