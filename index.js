@@ -112,7 +112,14 @@ document.getElementById('loader').style.display = 'block'; // ✅ show loader
 }); // ✅ closes DOMContentLoaded
 
 function loadClientBranding(clientCode) {
-  // ✅ 1. Define nafazContext for global use
+  if (!clientCode) {
+    // Hardcode NafazHR default
+    const logo = document.getElementById('logo');
+    if (logo) logo.src = './public/NafazHR_Header_Vector.svg';
+    console.log("Default NafazHR branding loaded.");
+    return;
+  }
+
   window.nafazContext = {
     companyCode: clientCode,
     userFullName: null,
@@ -121,35 +128,31 @@ function loadClientBranding(clientCode) {
     logoPath: `clients/${clientCode}/logo.svg`
   };
 
-  // 🚫 Clean up old client.css if already loaded
+  // Remove old client.css
   const oldClientCss = document.querySelector('link[href*="clients/"]');
-  if (oldClientCss) {
-    oldClientCss.remove();
-  }
+  if (oldClientCss) oldClientCss.remove();
 
-  // ✅ 2. Inject client-specific CSS
+  // Load CSS
   const css = document.createElement('link');
   css.rel = 'stylesheet';
   css.href = nafazContext.clientCSS;
   document.head.appendChild(css);
 
-
-  // ✅ 3. Inject client-specific JS
+  // Load client JS
   const script = document.createElement('script');
   script.src = `clients/${clientCode}/client.js`;
   document.body.appendChild(script);
 
-  // ✅ 4. Update logo with fallback
+  // Update logo with fallback
   const logo = document.getElementById('logo');
   if (logo) {
     logo.src = nafazContext.logoPath;
     logo.onerror = () => {
-      logo.src = './public/NafazHR_Header_Vector.svg'; // fallback logo
+      logo.src = './public/NafazHR_Header_Vector.svg';
     };
   }
 
-  // ✅ 5. Safe log after context is initialized
-  console.log("Client branding loaded for:", window.nafazContext.companyCode);
+  console.log("Client branding loaded for:", clientCode);
 }
 
 function loadFooterComponent(isVerified = false) {
@@ -206,8 +209,9 @@ async function initDirectLogin() {
     // 🚨 No ?company → reset everything
     localStorage.removeItem("client");
 
-    loadClientBranding("nafazhr");
-    loadFooterComponent(true);
+// Don’t load client assets if no code is provided
+loadClientBranding(null);    
+loadFooterComponent(true);
 
     document.getElementById('company-code-block').style.display = 'block';
     document.getElementById('login-block').style.display = 'none'; // ✅ HIDE login
